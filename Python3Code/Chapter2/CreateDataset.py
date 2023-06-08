@@ -18,7 +18,7 @@ import matplotlib.dates as md
 class CreateDataset:
 
     base_dir = ''
-    granularity = 0
+    granularity = 0 #Expressed in milliseconds, is the stepsize
     data_table = None
 
     def __init__(self, base_dir, granularity):
