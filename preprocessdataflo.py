@@ -77,8 +77,9 @@ dataframes['Location'].rename(columns={'Time (s)': 'timestep', 'Latitude (°)': 
 dataframes['Magnetometer'].rename(columns={'Time (s)': 'timestep', 'X (µT)': 'x', 'Y (µT)': 'y', 'Z (µT)': 'z'}, inplace=True)
 dataframes['Proximity'].rename(columns={'Time (s)': 'timestep', 'Distance (cm)': 'dis'}, inplace=True)
 dataframes['time'].rename(columns={'experiment time': 'experiment_time', 'system time': 'system_time', 'system time text': 'system_text_time'}, inplace=True)
-dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
+# dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
 
+print(dataframes['time'])
 # Save to dataframes as csv in the datasets folder
 for df in dataframes.keys():
     dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/' + df + 'flo.csv', index=False)
