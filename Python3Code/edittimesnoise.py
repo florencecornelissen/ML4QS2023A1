@@ -6,7 +6,7 @@ import os
 maps = ['FloSquads/', 'FloLunges/', 'FloJumpingJacks/', 'FloLegRaises/', 'FloCrunches/', 'FloPushUps/']
 
 # Specify the directory containing the CSV files
-directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/'
+directory = './datasets/exercises/'
 
 # Create an empty dictionary to store the DataFrames
 dfs = {}
@@ -27,7 +27,7 @@ for map in maps:
             name = filename[:-4] + map[:-1] # Remove the '.csv' extension
             dfsall[name] = df   
 
-timesdf = pd.read_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/timeflo.csv')
+timesdf = pd.read_csv('./datasets/exercises/timeflo.csv')
 
 indicesbegin = [234, 193, 115, 186, 199, 360]
 begintimes = []

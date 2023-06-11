@@ -7,14 +7,14 @@ maps = ['FloSquads', 'FloLunges', 'FloJumpingJacks', 'FloLegRaises', 'FloCrunche
 
 
 # Specify the directory containing the CSV files
-directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/FloSquads/'
+directory = './Python3Code/datasets/exercises/FloSquads/'
 
 # Create an empty dictionary to store the DataFrames
 dataframes = {}
 
 # Loop through all files in the directory
 for filename in os.listdir(directory):
-    if filename.endswith('.csv'):  # Check if the file is a CSV file
+    if filename.endswith('.csv') and filename != 'device.csv':  # Check if the file is a CSV file
         file_path = os.path.join(directory, filename)
             
         # Read the CSV file into a pandas DataFrame
@@ -30,7 +30,7 @@ for filename in os.listdir(directory):
 maps = ['FloLunges/', 'FloJumpingJacks/', 'FloLegRaises/', 'FloCrunches/', 'FloPushUps/']
 
 # Specify the directory containing the CSV files
-directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/'
+directory = './Python3Code/datasets/exercises/'
 
 # Create an empty dictionary to store the DataFrames
 additionaldfs = {}
@@ -40,7 +40,7 @@ for map in maps:
     
     # Loop through all files in the directory
     for filename in os.listdir(path):
-        if filename.endswith('.csv'):  # Check if the file is a CSV file
+        if filename.endswith('.csv') and filename != 'device.csv':  # Check if the file is a CSV file
             file_path = os.path.join(path, filename)  # Use 'path' instead of 'directory'
             
             # Read the CSV file into a pandas DataFrame
@@ -55,7 +55,7 @@ for map in maps:
 
 # Concatenate all the dataframes of the same measurement type in one dataframe
 files = []
-for filename in os.listdir('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/FloCrunches/'):
+for filename in os.listdir('./datasets/exercises/FloCrunches/'):
     if filename.endswith('.csv'):
         files.append(filename[:-4])
 
@@ -77,7 +77,10 @@ dataframes['Location'].rename(columns={'Time (s)': 'timestep', 'Latitude (°)': 
 dataframes['Magnetometer'].rename(columns={'Time (s)': 'timestep', 'X (µT)': 'x', 'Y (µT)': 'y', 'Z (µT)': 'z'}, inplace=True)
 dataframes['Proximity'].rename(columns={'Time (s)': 'timestep', 'Distance (cm)': 'dis'}, inplace=True)
 dataframes['time'].rename(columns={'experiment time': 'experiment_time', 'system time': 'system_time', 'system time text': 'system_text_time'}, inplace=True)
-# dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
+dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
+
+#cumsum = dataframes['time']['experiment_time'].cumsum()
+dataframes['timeseq'] = dataframes['time']['experiment_time'].cumsum()
 
 print(dataframes['time'])
 # Save to dataframes as csv in the datasets folder
