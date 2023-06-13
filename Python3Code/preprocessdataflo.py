@@ -7,7 +7,7 @@ maps = ['FloSquads', 'FloLunges', 'FloJumpingJacks', 'FloLegRaises', 'FloCrunche
 
 
 # Specify the directory containing the CSV files
-directory = './Python3Code/datasets/exercises/FloSquads/'
+directory = './datasets/exercises/FloSquads/'
 
 # Create an empty dictionary to store the DataFrames
 dataframes = {}
@@ -30,7 +30,7 @@ for filename in os.listdir(directory):
 maps = ['FloLunges/', 'FloJumpingJacks/', 'FloLegRaises/', 'FloCrunches/', 'FloPushUps/']
 
 # Specify the directory containing the CSV files
-directory = './Python3Code/datasets/exercises/'
+directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises'
 
 # Create an empty dictionary to store the DataFrames
 additionaldfs = {}
@@ -80,9 +80,9 @@ dataframes['time'].rename(columns={'experiment time': 'experiment_time', 'system
 dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
 
 #cumsum = dataframes['time']['experiment_time'].cumsum()
-dataframes['timeseq'] = dataframes['time']['experiment_time'].cumsum()
+# dataframes['timeseq'] = dataframes['time']['experiment_time'].cumsum()
 
 print(dataframes['time'])
 # Save to dataframes as csv in the datasets folder
 for df in dataframes.keys():
-    dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/' + df + 'flo.csv', index=False)
+    dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/DataFlo/' + df + 'flo.csv', index=False)

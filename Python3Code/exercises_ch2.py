@@ -66,7 +66,7 @@ for milliseconds_per_instance in GRANULARITIES:
     dataset.add_numerical_dataset('Magnetometerflo.csv', 'timestep', ['x','y','z'], 'avg', 'mag_phone_')
     dataset.add_numerical_dataset('Proximityflo.csv', 'timestep', ['dis'], 'avg', 'dist_phone_')
 
-    dataset.add_event_dataset('timeflo.csv', 'START', 'PAUSE', 'label', 'binary')
+    dataset.add_event_dataset('timeflo.csv', 'start_exercise', 'end_exercise', 'label', 'binary')
 
     # dataset.add_numerical_dataset('magnetometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_watch_')
 

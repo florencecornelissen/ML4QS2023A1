@@ -7,7 +7,7 @@ maps = ['IvoSquads', 'IvoLunges', 'IvoJumpingJacks', 'IvoLegRaises', 'IvoCrunche
 
 
 # Specify the directory containing the CSV files
-directory = './datasets/exercises/IvoSquads/'
+directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises'
 
 # Create an empty dictionary to store the DataFrames
 dataframes = {}
@@ -61,13 +61,13 @@ for filename in os.listdir('./datasets/exercises/IvoCrunches/'):
 
 combineddf = {}
 
-
 for df in dataframes.keys():
     for df2 in additionaldfs.keys():
         if df in df2:
             combineddf[df] = pd.concat([dataframes[df], additionaldfs[df2]])
             dataframes[df] = combineddf[df]
             # print(combineddf[df])
+
 
 dataframes['Accelerometer'].rename(columns={'Time (s)': 'timestep', 'X (m/s^2)': 'x', 'Y (m/s^2)': 'y', 'Z (m/s^2)': 'z'}, inplace=True)
 dataframes['Barometer'].rename(columns={'Time (s)': 'timestep', 'X (hPa)': 'x'}, inplace=True)
@@ -85,4 +85,4 @@ dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_tex
 print(dataframes['time'])
 # Save to dataframes as csv in the datasets folder
 for df in dataframes.keys():
-    dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/' + df + 'ivo.csv', index=False)
+    dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/DataIvo/' + df + 'ivo.csv', index=False)
