@@ -29,7 +29,7 @@ for map in maps:
 
 timesdf = pd.read_csv('./datasets/exercises/timeflo.csv')
 
-indicesbegin = [234, 193, 115, 186, 199, 360]
+indicesbegin = [192, 183, 400, 346, 288, 337]
 begintimes = []
 for df1 in dfsall.values():
     if indicesbegin == []:
@@ -37,7 +37,7 @@ for df1 in dfsall.values():
     begintimes.append(df1.at[indicesbegin[0], 'Time (s)'])
     indicesbegin.pop(0)
 
-indicesend = [2540, 3841, 3136, 2647, 3961, 1975]
+indicesend = [4086, 4299, 3200, 4279, 2357, 2725]
 endtimes = []
 for df1 in dfsall.values():
     if indicesend == []:
