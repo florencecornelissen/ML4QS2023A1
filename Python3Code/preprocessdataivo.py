@@ -7,7 +7,7 @@ maps = ['IvoSquads', 'IvoLunges', 'IvoJumpingJacks', 'IvoLegRaises', 'IvoCrunche
 
 
 # Specify the directory containing the CSV files
-directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises'
+directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercisesIvo'
 
 # Create an empty dictionary to store the DataFrames
 dataframes = {}
@@ -30,7 +30,7 @@ for filename in os.listdir(directory):
 maps = ['IvoLunges/', 'IvoJumpingJacks/', 'IvoLegRaises/', 'IvoCrunches/', 'IvoPushUps/']
 
 # Specify the directory containing the CSV files
-directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises'
+directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercisesIvo'
 
 # Create an empty dictionary to store the DataFrames
 additionaldfs = {}
@@ -55,7 +55,7 @@ for map in maps:
 
 # Concatenate all the dataframes of the same measurement type in one dataframe
 files = []
-for filename in os.listdir('./datasets/exercises/IvoCrunches/'):
+for filename in os.listdir('./datasets/exercises/exercisesIvo/IvoCrunches/'):
     if filename.endswith('.csv'):
         files.append(filename[:-4])
 
@@ -67,6 +67,9 @@ for df in dataframes.keys():
             combineddf[df] = pd.concat([dataframes[df], additionaldfs[df2]])
             dataframes[df] = combineddf[df]
             # print(combineddf[df])
+
+for dataframe in dataframes:
+    print(dataframe)
 
 
 dataframes['Accelerometer'].rename(columns={'Time (s)': 'timestep', 'X (m/s^2)': 'x', 'Y (m/s^2)': 'y', 'Z (m/s^2)': 'z'}, inplace=True)
