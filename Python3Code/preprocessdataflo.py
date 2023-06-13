@@ -7,7 +7,7 @@ maps = ['FloSquads', 'FloLunges', 'FloJumpingJacks', 'FloLegRaises', 'FloCrunche
 
 
 # Specify the directory containing the CSV files
-directory = './datasets/exercises/FloSquads/'
+directory = './datasets/exercises/exercisesFlo/FloSquads/'
 
 # Create an empty dictionary to store the DataFrames
 dataframes = {}
@@ -30,7 +30,7 @@ for filename in os.listdir(directory):
 maps = ['FloLunges/', 'FloJumpingJacks/', 'FloLegRaises/', 'FloCrunches/', 'FloPushUps/']
 
 # Specify the directory containing the CSV files
-directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises'
+directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercisesFlo'
 
 # Create an empty dictionary to store the DataFrames
 additionaldfs = {}
@@ -55,7 +55,7 @@ for map in maps:
 
 # Concatenate all the dataframes of the same measurement type in one dataframe
 files = []
-for filename in os.listdir('./datasets/exercises/FloCrunches/'):
+for filename in os.listdir('./datasets/exercises/exercisesFlo/FloCrunches/'):
     if filename.endswith('.csv'):
         files.append(filename[:-4])
 
