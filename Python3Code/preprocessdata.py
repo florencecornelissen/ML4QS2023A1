@@ -14,7 +14,8 @@ indicesbeginJoost = [238, 258, 300, 300, 234, 342]
 indicesendJoost = [1959, 1679, 1300, 2200, 1731, 1478]
 
 participants = [{'name': 'Ivo', 'indicesbegin': indicesbeginIvo, 'indicesend': indicesendIvo},
-               {'name': 'Flo', 'indicesbegin': indicesbeginFlo, 'indicesend': indicesendFlo}]
+               {'name': 'Flo', 'indicesbegin': indicesbeginFlo, 'indicesend': indicesendFlo},
+               {'name': 'Joost', 'indicesbegin': indicesbeginJoost, 'indicesend': indicesendJoost}]
 
 for participant in participants:
     preprocessdatatotal(participant['name'], participant['indicesbegin'], participant['indicesend'])
