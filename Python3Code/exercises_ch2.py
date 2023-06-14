@@ -42,13 +42,13 @@ for milliseconds_per_instance in GRANULARITIES:
 
     # We add the accelerometer data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('AccelerometerFlo.csv', 'timestep', ['x','y','z'], 'avg', 'acc_phone_')
-    dataset.add_numerical_dataset('BarometerFlo.csv', 'timestep', ['x'], 'avg', 'bar_phone_')
+    dataset.add_numerical_dataset('AccelerometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
+    dataset.add_numerical_dataset('BarometerFlo.csv', 'timestamps', ['x'], 'avg', 'bar_phone_')
 
     # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('GyroscopeFlo.csv', 'timestep', ['x','y','z'], 'avg', 'gyr_phone_')
-    dataset.add_numerical_dataset('Linear_AccelerometerFlo.csv', 'timestep', ['x','y','z'], 'avg', 'linacc_phone_')
+    dataset.add_numerical_dataset('GyroscopeFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'gyr_phone_')
+    dataset.add_numerical_dataset('Linear_AccelerometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'linacc_phone_')
 
     # We add the heart rate (continuous numerical measurements) and aggregate by averaging again
     # dataset.add_numerical_dataset('heart_rate_smartwatch.csv', 'timestamps', ['rate'], 'avg', 'hr_watch_')
@@ -59,14 +59,14 @@ for milliseconds_per_instance in GRANULARITIES:
     # dataset.add_event_dataset('labels.csv', 'label_start', 'label_end', 'label', 'binary')
 
     # We add the amount of light sensed by the phone (continuous numerical measurements) and aggregate by averaging
-    dataset.add_numerical_dataset('LocationFlo.csv', 'timestep', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
+    dataset.add_numerical_dataset('LocationFlo.csv', 'timestamps', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
 
     # We add the magnetometer data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('MagnetometerFlo.csv', 'timestep', ['x','y','z'], 'avg', 'mag_phone_')
-    dataset.add_numerical_dataset('ProximityFlo.csv', 'timestep', ['dis'], 'avg', 'dist_phone_')
+    dataset.add_numerical_dataset('MagnetometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_phone_')
+    dataset.add_numerical_dataset('ProximityFlo.csv', 'timestamps', ['dis'], 'avg', 'dist_phone_')
 
-    dataset.add_event_dataset('timeFlo.csv', 'start_timing', 'end_timing', 'label', 'binary')
+    dataset.add_event_dataset('timeFlo.csv', 'label_start', 'label_end', 'label', 'binary')
 
     # dataset.add_numerical_dataset('magnetometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_watch_')
 
@@ -77,15 +77,15 @@ for milliseconds_per_instance in GRANULARITIES:
     dataset = dataset.data_table
 
     # Plot the data
-    # DataViz = VisualizeDataset(__file__)
+    DataViz = VisualizeDataset(__file__)
 
     # Boxplot
-    # DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
+    DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
 
     # Plot all data
-    # DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
-    #                               ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
-    #                               ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
+    DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
+                                  ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
+                                  ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
 
     # And print a summary of the dataset.
     util.print_statistics(dataset)
