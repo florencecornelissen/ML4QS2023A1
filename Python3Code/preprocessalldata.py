@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import os
+from datetime import datetime, timedelta
 
 def preprocessdatatotal(participant, indicesbegin, indicesend):
     maps = [participant+'Squads', participant+'Lunges', participant+'JumpingJacks', participant+'LegRaises', participant+'Crunches', participant+'PushUps']
@@ -222,3 +223,38 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
     newtimesdf = newtimesdf[['label', 'start_timing', 'end_timing']]
 
     newtimesdf.to_csv('./datasets/exercises/Data'+participant+'/time'+participant+'.csv', index=False)
+
+    #### ADD THE TIMESTAMPS TO THE DATAFRAMES ####
+    maps = [participant+'Squads', participant+'Lunges', participant+'JumpingJacks', participant+'LegRaises', participant+'Crunches', participant+'PushUps']
+
+    # Specify the directory containing the CSV files
+    directory = './datasets/exercises/Data'+participant+'/'
+
+    # Create an empty dictionary to store the DataFrames
+    dataframes = {}
+
+    # Loop through all files in the directory
+    for filename in os.listdir(directory):
+        if filename.endswith('.csv') and filename != 'device.csv':  # Check if the file is a CSV file
+            file_path = os.path.join(directory, filename)
+                
+            # Read the CSV file into a pandas DataFrame
+            df = pd.read_csv(file_path)
+                
+            # Assign a name to the DataFrame (e.g., using the filename without the extension)
+            name = filename[:-4]# Remove the '.csv' extension
+            dataframes[name] = df
+                
+            # Process the DataFrame or perform desired operations
+            # For example, you can print the contents of the DataFrame
+
+    exercisedate = datetime(2023,6,7,14,13,30,636874)
+
+    for df in dataframes:
+        if df != 'time'+participant:
+            dataframes[df]['timestamps'] = exercisedate.timestamp() + dataframes[df]['timestep']
+            dataframes[df].to_csv('./datasets/exercises/Data'+participant+'/'+df+'.csv', index=False)
+        if df == 'time'+participant:
+            dataframes[df]['label_start'] = exercisedate.timestamp() + dataframes[df]['start_timing']
+            dataframes[df]['label_end'] = exercisedate.timestamp() + dataframes[df]['end_timing']
+            dataframes[df].to_csv('./datasets/exercises/Data'+participant+'/'+df+'.csv', index=False)

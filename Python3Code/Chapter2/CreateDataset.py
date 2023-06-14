@@ -12,8 +12,9 @@ import numpy as np
 import re
 import copy
 from datetime import datetime, timedelta
+import time
 import matplotlib.pyplot as plot
-import matplotlib.dates as md
+# import matplotlib.dates as md
 
 class CreateDataset:
 
@@ -28,7 +29,8 @@ class CreateDataset:
     # Create an initial data table with entries from start till end time, with steps
     # of size granularity. Granularity is specified in milliseconds
     def create_timestamps(self, start_time, end_time):
-        return pd.date_range(start_time, end_time, freq=str(self.granularity)+'ms')
+        print(start_time, end_time)
+        return pd.interval_range(start_time, end_time, freq=self.granularity)
 
     def create_dataset(self, start_time, end_time, cols, prefix):
         c = copy.deepcopy(cols)
@@ -46,7 +48,7 @@ class CreateDataset:
         dataset = pd.read_csv(self.base_dir / file, skipinitialspace=True)
 
         # Convert timestamps to dates
-        dataset[timestamp_col] = pd.to_datetime(dataset[timestamp_col])
+        # dataset[timestamp_col] = pd.to_datetime(dataset[timestamp_col])
 
         # Create a table based on the times found in the dataset
         if self.data_table is None:
@@ -73,6 +75,7 @@ class CreateDataset:
                 else:
                     self.data_table.loc[self.data_table.index[i], str(prefix)+str(col)] = np.nan
 
+
     # Remove undesired value from the names.
     def clean_name(self, name):
         return re.sub('[^0-9a-zA-Z]+', '', name)
@@ -84,8 +87,8 @@ class CreateDataset:
         dataset = pd.read_csv(self.base_dir / file)
 
         # Convert timestamps to datetime.
-        dataset[start_timestamp_col] = pd.to_datetime(dataset[start_timestamp_col])
-        dataset[end_timestamp_col] = pd.to_datetime(dataset[end_timestamp_col])
+        # dataset[start_timestamp_col] = pd.to_datetime(dataset[start_timestamp_col])
+        # dataset[end_timestamp_col] = pd.to_datetime(dataset[end_timestamp_col])
 
         # Clean the event values in the dataset
         dataset[value_col] = dataset[value_col].apply(self.clean_name)
@@ -103,10 +106,14 @@ class CreateDataset:
             start = dataset[start_timestamp_col][i]
             end = dataset[end_timestamp_col][i]
             value = dataset[value_col][i]
-            border = (start - timedelta(milliseconds=self.granularity))
+            # border = (start - timedelta(milliseconds=self.granularity))
 
             # get the right rows from our data table
-            relevant_rows = self.data_table[(start <= (self.data_table.index +timedelta(milliseconds=self.granularity))) & (end > self.data_table.index)]
+            if start > end:
+                start, end = end, start
+
+            relevant_rows = self.data_table[self.data_table.index.overlaps(pd.Interval(start, end))]
+
 
             # and add 1 to the rows if we take the sum
             if aggregation == 'sum':

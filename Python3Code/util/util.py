@@ -44,13 +44,38 @@ def print_statistics(dataset, describe=True):
 def print_table_cell(value1, value2):
     print("{0:.2f}".format(value1), ' / ', "{0:.2f}".format(value2), end='')
 
+# def print_latex_table_statistics_two_datasets(dataset1, dataset2):
+#     print('attribute, fraction missing values, mean, standard deviation, min, max')
+#     dataset1_length = len(dataset1.index)
+#     dataset2_length = len(dataset2.index)
+#     for col in dataset1.columns:
+#         print(col, '& ', end='')
+#         print_table_cell((float((dataset1_length - dataset1[col].count()))/dataset1_length)*100, (float((dataset2_length - dataset2[col].count()))/dataset2_length)*100)
+#         print(' & ', end='')
+#         print_table_cell(dataset1[col].mean(), dataset2[col].mean())
+#         print(' & ', end='')
+#         print_table_cell(dataset1[col].std(), dataset2[col].std())
+#         print(' & ', end='')
+#         print_table_cell(dataset1[col].min(), dataset2[col].min())
+#         print(' & ', end='')
+#         print_table_cell(dataset1[col].max(), dataset2[col].max())
+#         print('\\\\')
+
 def print_latex_table_statistics_two_datasets(dataset1, dataset2):
     print('attribute, fraction missing values, mean, standard deviation, min, max')
     dataset1_length = len(dataset1.index)
     dataset2_length = len(dataset2.index)
     for col in dataset1.columns:
         print(col, '& ', end='')
-        print_table_cell((float((dataset1_length - dataset1[col].count()))/dataset1_length)*100, (float((dataset2_length - dataset2[col].count()))/dataset2_length)*100)
+        if dataset1_length != 0:
+            fraction_missing_values_1 = (float((dataset1_length - dataset1[col].count())) / dataset1_length) * 100
+        else:
+            fraction_missing_values_1 = 0.0
+        if dataset2_length != 0:
+            fraction_missing_values_2 = (float((dataset2_length - dataset2[col].count())) / dataset2_length) * 100
+        else:
+            fraction_missing_values_2 = 0.0
+        print_table_cell(fraction_missing_values_1, fraction_missing_values_2)
         print(' & ', end='')
         print_table_cell(dataset1[col].mean(), dataset2[col].mean())
         print(' & ', end='')
@@ -60,6 +85,7 @@ def print_latex_table_statistics_two_datasets(dataset1, dataset2):
         print(' & ', end='')
         print_table_cell(dataset1[col].max(), dataset2[col].max())
         print('\\\\')
+
 
 def print_latex_statistics_clusters(dataset, cluster_col, input_cols, label_col):
     label_cols = [c for c in dataset.columns if label_col == c[0:len(label_col)]]

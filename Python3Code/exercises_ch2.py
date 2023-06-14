@@ -20,7 +20,7 @@ import sys
 
 DATASET_PATH = Path('./datasets/exercises/dataFlo/')
 RESULT_PATH = Path('./intermediate_datafiles/')
-RESULT_FNAME = 'chapter2_result.csv'
+RESULT_FNAME = 'chapter2_resultexercises.csv'
 
 # Set a granularity (the discrete step size of our time series data). We'll use a course-grained granularity of one
 # instance per minute, and a fine-grained one with four instances per second.
@@ -77,15 +77,15 @@ for milliseconds_per_instance in GRANULARITIES:
     dataset = dataset.data_table
 
     # Plot the data
-    DataViz = VisualizeDataset(__file__)
+    # DataViz = VisualizeDataset(__file__)
 
     # Boxplot
-    DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
+    # DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
 
     # Plot all data
-    DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
-                                  ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
-                                  ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
+    # DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
+    #                               ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
+    #                               ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
 
     # And print a summary of the dataset.
     util.print_statistics(dataset)
