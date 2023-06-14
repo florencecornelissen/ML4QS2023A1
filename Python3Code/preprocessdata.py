@@ -10,6 +10,9 @@ indicesendFlo = [2540, 3841, 3136, 2647, 3961, 1975]
 indicesbeginIvo = [192, 183, 400, 346, 288, 337]
 indicesendIvo = [4086, 4299, 3200, 4279, 2357, 2725]
 
+indicesbeginJoost = [238, 258, 300, 300, 234, 342]
+indicesendJoost = [1959, 1679, 1300, 2200, 1731, 1478]
+
 participants = [{'name': 'Ivo', 'indicesbegin': indicesbeginIvo, 'indicesend': indicesendIvo},
                {'name': 'Flo', 'indicesbegin': indicesbeginFlo, 'indicesend': indicesendFlo}]
 
