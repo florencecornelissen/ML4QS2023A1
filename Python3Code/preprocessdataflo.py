@@ -79,10 +79,24 @@ dataframes['Proximity'].rename(columns={'Time (s)': 'timestep', 'Distance (cm)':
 dataframes['time'].rename(columns={'experiment time': 'experiment_time', 'system time': 'system_time', 'system time text': 'system_text_time'}, inplace=True)
 dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
 
+for dataframe in dataframes:
+    if dataframe != 'time':
+        temp = 0
+        value =  0
+        new_time = []
+        for idx,row in dataframes[str(dataframe)].iterrows():
+            dif = row['timestep'] - temp 
+            if dif<0:
+                dif = prev_dif
+            value = value + dif
+            new_time.append(value)
+            prev_dif = dif
+            temp = row['timestep']
+        dataframes[str(dataframe)]['timestep'] = new_time
+
 #cumsum = dataframes['time']['experiment_time'].cumsum()
 # dataframes['timeseq'] = dataframes['time']['experiment_time'].cumsum()
 
-print(dataframes['time'])
 # Save to dataframes as csv in the datasets folder
 for df in dataframes.keys():
     dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/DataFlo/' + df + 'flo.csv', index=False)
