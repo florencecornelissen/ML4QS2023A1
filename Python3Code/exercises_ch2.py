@@ -18,7 +18,7 @@ import sys
 
 # Chapter 2: Initial exploration of the dataset.
 
-DATASET_PATH = Path('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/')
+DATASET_PATH = Path('./datasets/exercises/dataFlo/')
 RESULT_PATH = Path('./intermediate_datafiles/')
 RESULT_FNAME = 'chapter2_result.csv'
 
@@ -42,13 +42,13 @@ for milliseconds_per_instance in GRANULARITIES:
 
     # We add the accelerometer data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('Accelerometerflo.csv', 'timestep', ['x','y','z'], 'avg', 'acc_phone_')
-    dataset.add_numerical_dataset('Barometerflo.csv', 'timestep', ['x'], 'avg', 'bar_phone_')
+    dataset.add_numerical_dataset('AccelerometerFlo.csv', 'timestep', ['x','y','z'], 'avg', 'acc_phone_')
+    dataset.add_numerical_dataset('BarometerFlo.csv', 'timestep', ['x'], 'avg', 'bar_phone_')
 
     # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('Gyroscopeflo.csv', 'timestep', ['x','y','z'], 'avg', 'gyr_phone_')
-    dataset.add_numerical_dataset('Linear_Accelerometerflo.csv', 'timestep', ['x','y','z'], 'avg', 'linacc_phone_')
+    dataset.add_numerical_dataset('GyroscopeFlo.csv', 'timestep', ['x','y','z'], 'avg', 'gyr_phone_')
+    dataset.add_numerical_dataset('Linear_AccelerometerFlo.csv', 'timestep', ['x','y','z'], 'avg', 'linacc_phone_')
 
     # We add the heart rate (continuous numerical measurements) and aggregate by averaging again
     # dataset.add_numerical_dataset('heart_rate_smartwatch.csv', 'timestamps', ['rate'], 'avg', 'hr_watch_')
@@ -59,14 +59,14 @@ for milliseconds_per_instance in GRANULARITIES:
     # dataset.add_event_dataset('labels.csv', 'label_start', 'label_end', 'label', 'binary')
 
     # We add the amount of light sensed by the phone (continuous numerical measurements) and aggregate by averaging
-    dataset.add_numerical_dataset('Locationflo.csv', 'timestep', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
+    dataset.add_numerical_dataset('LocationFlo.csv', 'timestep', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
 
     # We add the magnetometer data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('Magnetometerflo.csv', 'timestep', ['x','y','z'], 'avg', 'mag_phone_')
-    dataset.add_numerical_dataset('Proximityflo.csv', 'timestep', ['dis'], 'avg', 'dist_phone_')
+    dataset.add_numerical_dataset('MagnetometerFlo.csv', 'timestep', ['x','y','z'], 'avg', 'mag_phone_')
+    dataset.add_numerical_dataset('ProximityFlo.csv', 'timestep', ['dis'], 'avg', 'dist_phone_')
 
-    dataset.add_event_dataset('timeflo.csv', 'start_exercise', 'end_exercise', 'label', 'binary')
+    dataset.add_event_dataset('timeFlo.csv', 'timing', 'timing', 'label', 'binary')
 
     # dataset.add_numerical_dataset('magnetometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_watch_')
 

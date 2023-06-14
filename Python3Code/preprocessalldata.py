@@ -8,7 +8,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
 
 
     # Specify the directory containing the CSV files
-    directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercises'+participant+'/'+participant+'Squads/'
+    directory = './datasets/exercises/exercises'+participant+'/'+participant+'Squads/'
 
     # Create an empty dictionary to store the DataFrames
     dataframes = {}
@@ -31,7 +31,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
     maps = [participant+'Lunges/', participant+'JumpingJacks/', participant+'LegRaises/', participant+'Crunches/', participant+'PushUps/']
 
     # Specify the directory containing the CSV files
-    directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercises'+participant+'/'
+    directory = './datasets/exercises/exercises'+participant+'/'
 
     # Create an empty dictionary to store the DataFrames
     additionaldfs = {}
@@ -56,7 +56,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
 
     # Concatenate all the dataframes of the same measurement type in one dataframe
     files = []
-    for filename in os.listdir('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercises'+participant+'/'+participant+'Crunches/'):
+    for filename in os.listdir('./datasets/exercises/exercises'+participant+'/'+participant+'Crunches/'):
         if filename.endswith('.csv'):
             files.append(filename[:-4])
 
@@ -100,12 +100,12 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
 
     # Save to dataframes as csv in the datasets folder
     for df in dataframes.keys():
-        dataframes[df].to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/Data'+participant+'/' + df + participant+ '.csv', index=False)
+        dataframes[df].to_csv('./datasets/exercises/Data'+participant+'/' + df + participant+ '.csv', index=False)
 
     maps = [participant+'Squads/', participant+'Lunges/', participant+'JumpingJacks/', participant+'LegRaises/', participant+'Crunches/', participant+'PushUps/']
 
     # Specify the directory containing the CSV files
-    directory = '/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/exercises'+participant+'/'
+    directory = './datasets/exercises/exercises'+participant+'/'
 
     # Create an empty dictionary to store the DataFrames
     dfs = {}
@@ -126,7 +126,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
                 name = filename[:-4] + map[:-1] # Remove the '.csv' extension
                 dfsall[name] = df   
 
-    timesdf = pd.read_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/Data'+participant+'/time'+participant+'.csv')
+    timesdf = pd.read_csv('./datasets/exercises/Data'+participant+'/time'+participant+'.csv')
 
     begintimes = []
     for df1 in dfsall.values():
@@ -221,4 +221,4 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
 
     newtimesdf = newtimesdf[['label', 'start_timing', 'end_timing']]
 
-    newtimesdf.to_csv('/Users/florencecornelissen/Documents/VU/ML4QS/ML4QS2023A1/Python3Code/datasets/exercises/Data'+participant+'/time'+participant+'.csv', index=False)
+    newtimesdf.to_csv('./datasets/exercises/Data'+participant+'/time'+participant+'.csv', index=False)
