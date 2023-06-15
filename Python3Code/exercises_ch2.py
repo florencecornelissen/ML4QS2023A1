@@ -13,8 +13,10 @@ from util.VisualizeDataset import VisualizeDataset
 from util import util
 from pathlib import Path
 import copy
+import pandas as pd
 import os
 import sys
+import datetime
 
 # Chapter 2: Initial exploration of the dataset.
 
@@ -43,6 +45,7 @@ for milliseconds_per_instance in GRANULARITIES:
     # We add the accelerometer data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
     dataset.add_numerical_dataset('AccelerometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
+
     dataset.add_numerical_dataset('BarometerFlo.csv', 'timestamps', ['x'], 'avg', 'bar_phone_')
 
     # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch

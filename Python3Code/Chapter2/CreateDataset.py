@@ -43,6 +43,8 @@ class CreateDataset:
     # Add numerical data, we assume timestamps in the form of nanoseconds from the epoch
     def add_numerical_dataset(self, file, timestamp_col, value_cols, aggregation='avg', prefix=''):
         print(f'Reading data from {file}')
+        print(timestamp_col)
+        
         dataset = pd.read_csv(self.base_dir / file, skipinitialspace=True)
 
         # Convert timestamps to dates

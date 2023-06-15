@@ -43,7 +43,9 @@ for milliseconds_per_instance in GRANULARITIES:
     # We add the accelerometer data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
     dataset.add_numerical_dataset('accelerometer_phone.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
-    dataset.add_numerical_dataset('accelerometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_watch_')
+    print(dataset.data_table)
+    break
+    # dataset.add_numerical_dataset('accelerometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_watch_')
 
     # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch
     # and aggregate the values per timestep by averaging the values
@@ -91,12 +93,12 @@ for milliseconds_per_instance in GRANULARITIES:
     # dataset.to_csv(RESULT_PATH / f'chapter2_result_{milliseconds_per_instance}')
 
 
-# Make a table like the one shown in the book, comparing the two datasets produced.
-util.print_latex_table_statistics_two_datasets(datasets[0], datasets[1])
+# # Make a table like the one shown in the book, comparing the two datasets produced.
+# util.print_latex_table_statistics_two_datasets(datasets[0], datasets[1])
 
-# Finally, store the last dataset we generated (250 ms).
-dataset.to_csv(RESULT_PATH / RESULT_FNAME)
+# # Finally, store the last dataset we generated (250 ms).
+# dataset.to_csv(RESULT_PATH / RESULT_FNAME)
 
-# Lastly, print a statement to know the code went through
+# # Lastly, print a statement to know the code went through
 
-print('The code has run through successfully!')
+# print('The code has run through successfully!')

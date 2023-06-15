@@ -245,13 +245,19 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
             # Process the DataFrame or perform desired operations
             # For example, you can print the contents of the DataFrame
 
-    exercisedate = datetime(2023,6,7,14,13,30,636874)
+    # exercisedate = datetime(2023,6,7,14,13,30,636874)
+    startstamp = 1454956105656222395
 
     for df in dataframes:
         if df != 'time'+participant:
-            dataframes[df]['timestamps'] = exercisedate.timestamp() + dataframes[df]['timestep']
+            # dataframes[df]['timestep']
+            
+            dataframes[df]['timestamps'] = startstamp + (dataframes[df]['timestep']*1000000000)
+            # dataframes[df]['timestamps'] = dataframes[df]['newdate'].timestamp()*1000
+            dataframes[df]['date'] = pd.to_datetime(dataframes[df]['timestamps'])
             dataframes[df].to_csv('./datasets/exercises/Data'+participant+'/'+df+'.csv', index=False)
         if df == 'time'+participant:
-            dataframes[df]['label_start'] = exercisedate.timestamp() + dataframes[df]['start_timing']
-            dataframes[df]['label_end'] = exercisedate.timestamp() + dataframes[df]['end_timing']
+            dataframes[df]['label_start'] = startstamp + (dataframes[df]['start_timing']*1000000000)
+            dataframes[df]['label_end'] = startstamp + (dataframes[df]['end_timing']*1000000000)
+            dataframes[df]['label_start_date'] = pd.to_datetime(dataframes[df]['label_start'])
             dataframes[df].to_csv('./datasets/exercises/Data'+participant+'/'+df+'.csv', index=False)
