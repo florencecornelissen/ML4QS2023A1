@@ -89,7 +89,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
             for idx,row in dataframes[str(dataframe)].iterrows():
                 dif = row['timestep'] - temp 
                 if dif<0:
-                    dif = 0
+                    dif = row['timestep']
                 value = value + dif
                 new_time.append(value)
                 prev_dif = dif
