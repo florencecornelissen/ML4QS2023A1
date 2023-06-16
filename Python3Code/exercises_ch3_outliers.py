@@ -17,10 +17,12 @@ import numpy as np
 from pathlib import Path
 import argparse
 
+participant = 'Flo'
+
 # Set up file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')
-DATASET_FNAME = 'chapter2_resultexercises.csv'
-RESULT_FNAME = 'chapter3_result_outliersexercises.csv'
+DATASET_FNAME = 'chapter2_resultexercises'+participant+'.csv'
+RESULT_FNAME = 'chapter3_result_outliersexercises'+participant+'.csv'
 
 def print_flags():
     """
@@ -50,7 +52,9 @@ def main():
     # Step 1: Let us see whether we have some outliers we would prefer to remove.
 
     # Determine the columns we want to experiment on.
-    outlier_columns = ['acc_phone_x', 'light_phone_lux']
+    outlier_columns = ['acc_phone_x', 'acc_phone_y', 'acc_phone_z', 'gyr_phone_x', 'gyr_phone_y', 'gyr_phone_z', 'mag_phone_x', 'mag_phone_y', 'mag_phone_z', 'linacc_phone_x', 'linacc_phone_y', 'linacc_phone_z']
+
+    # outlier_columns = ['acc_phone_z','acc_phone_y', 'acc_phone_z']# 'gyr_phone_x', 'gyr_phone_y', 'gyr_phone_z', 'mag_phone_x', 'mag_phone_y', 'mag_phone_z', 'linacc_phone_x', 'linacc_phone_y', 'linacc_phone_z']
     # Create the outlier classes.
     OutlierDistr = DistributionBasedOutlierDetection()
     OutlierDist = DistanceBasedOutlierDetection()
