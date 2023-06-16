@@ -44,7 +44,7 @@ for milliseconds_per_instance in GRANULARITIES:
     # and aggregate the values per timestep by averaging the values
     dataset.add_numerical_dataset('accelerometer_phone.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
     print(dataset.data_table)
-    break
+    
     # dataset.add_numerical_dataset('accelerometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_watch_')
 
     # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch

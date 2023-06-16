@@ -18,92 +18,102 @@ import os
 import sys
 import datetime
 
-# Chapter 2: Initial exploration of the dataset.
+participants = ['Ivo']
 
-DATASET_PATH = Path('./datasets/exercises/dataFlo/')
-RESULT_PATH = Path('./intermediate_datafiles/')
-RESULT_FNAME = 'chapter2_resultexercises.csv'
+for participant in participants:
+    # Chapter 2: Initial exploration of the dataset.
 
-# Set a granularity (the discrete step size of our time series data). We'll use a course-grained granularity of one
-# instance per minute, and a fine-grained one with four instances per second.
-GRANULARITIES = [60000, 250]
+    DATASET_PATH = Path('./datasets/exercises/data'+participant+'/')
+    RESULT_PATH = Path('./intermediate_datafiles/')
+    RESULT_FNAME = 'chapter2_resultexercises'+participant+'.csv'
 
-# We can call Path.mkdir(exist_ok=True) to make any required directories if they don't already exist.
-[path.mkdir(exist_ok=True, parents=True) for path in [DATASET_PATH, RESULT_PATH]]
+    # Set a granularity (the discrete step size of our time series data). We'll use a course-grained granularity of one
+    # instance per minute, and a fine-grained one with four instances per second.
+    GRANULARITIES = [500, 100]
 
-print('Please wait, this will take a while to run!')
+    # We can call Path.mkdir(exist_ok=True) to make any required directories if they don't already exist.
+    [path.mkdir(exist_ok=True, parents=True) for path in [DATASET_PATH, RESULT_PATH]]
 
-datasets = []
-for milliseconds_per_instance in GRANULARITIES:
-    print(f'Creating numerical datasets from files in {DATASET_PATH} using granularity {milliseconds_per_instance}.')
+    print('Please wait, this will take a while to run!')
 
-    # Create an initial dataset object with the base directory for our data and a granularity
-    dataset = CreateDataset(DATASET_PATH, milliseconds_per_instance)
+    datasets = []
+    for milliseconds_per_instance in GRANULARITIES:
+        print(f'Creating numerical datasets from files in {DATASET_PATH} using granularity {milliseconds_per_instance}.')
 
-    # Add the selected measurements to it.
+        # Create an initial dataset object with the base directory for our data and a granularity
+        dataset = CreateDataset(DATASET_PATH, milliseconds_per_instance)
 
-    # We add the accelerometer data (continuous numerical measurements) of the phone and the smartwatch
-    # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('AccelerometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
+        # Add the selected measurements to it.
 
-    dataset.add_numerical_dataset('BarometerFlo.csv', 'timestamps', ['x'], 'avg', 'bar_phone_')
+        # We add the accelerometer data (continuous numerical measurements) of the phone and the smartwatch
+        # and aggregate the values per timestep by averaging the values
+        dataset.add_numerical_dataset('Accelerometer'+participant+'.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
 
-    # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch
-    # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('GyroscopeFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'gyr_phone_')
-    dataset.add_numerical_dataset('Linear_AccelerometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'linacc_phone_')
+        dataset.add_numerical_dataset('Barometer'+participant+'.csv', 'timestamps', ['x'], 'avg', 'bar_phone_')
 
-    # We add the heart rate (continuous numerical measurements) and aggregate by averaging again
-    # dataset.add_numerical_dataset('heart_rate_smartwatch.csv', 'timestamps', ['rate'], 'avg', 'hr_watch_')
+        # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch
+        # and aggregate the values per timestep by averaging the values
+        dataset.add_numerical_dataset('Gyroscope'+participant+'.csv', 'timestamps', ['x','y','z'], 'avg', 'gyr_phone_')
+        dataset.add_numerical_dataset('Linear_Accelerometer'+participant+'.csv', 'timestamps', ['x','y','z'], 'avg', 'linacc_phone_')
 
-    # We add the labels provided by the users. These are categorical events that might overlap. We add them
-    # as binary attributes (i.e. add a one to the attribute representing the specific value for the label if it
-    # occurs within an interval).
-    # dataset.add_event_dataset('labels.csv', 'label_start', 'label_end', 'label', 'binary')
+        # We add the heart rate (continuous numerical measurements) and aggregate by averaging again
+        # dataset.add_numerical_dataset('heart_rate_smartwatch.csv', 'timestamps', ['rate'], 'avg', 'hr_watch_')
 
-    # We add the amount of light sensed by the phone (continuous numerical measurements) and aggregate by averaging
-    dataset.add_numerical_dataset('LocationFlo.csv', 'timestamps', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
+        # We add the labels provided by the users. These are categorical events that might overlap. We add them
+        # as binary attributes (i.e. add a one to the attribute representing the specific value for the label if it
+        # occurs within an interval).
+        # dataset.add_event_dataset('labels.csv', 'label_start', 'label_end', 'label', 'binary')
 
-    # We add the magnetometer data (continuous numerical measurements) of the phone and the smartwatch
-    # and aggregate the values per timestep by averaging the values
-    dataset.add_numerical_dataset('MagnetometerFlo.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_phone_')
-    dataset.add_numerical_dataset('ProximityFlo.csv', 'timestamps', ['dis'], 'avg', 'dist_phone_')
+        # We add the amount of light sensed by the phone (continuous numerical measurements) and aggregate by averaging
+        dataset.add_numerical_dataset('Location'+participant+'.csv', 'timestamps', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
 
-    dataset.add_event_dataset('timeFlo.csv', 'label_start', 'label_end', 'label', 'binary')
+        # We add the magnetometer data (continuous numerical measurements) of the phone and the smartwatch
+        # and aggregate the values per timestep by averaging the values
+        dataset.add_numerical_dataset('Magnetometer'+participant+'.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_phone_')
+        dataset.add_numerical_dataset('Proximity'+participant+'.csv', 'timestamps', ['dis'], 'avg', 'dist_phone_')
 
-    # dataset.add_numerical_dataset('magnetometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_watch_')
+        dataset.add_event_dataset('time'+participant+'.csv', 'label_start', 'label_end', 'label', 'binary')
 
-    # We add the pressure sensed by the phone (continuous numerical measurements) and aggregate by averaging again
-    # dataset.add_numerical_dataset('pressure_phone.csv', 'timestamps', ['pressure'], 'avg', 'press_phone_')
+        # dataset.add_numerical_dataset('magnetometer_smartwatch.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_watch_')
 
-    # Get the resulting pandas data table
-    dataset = dataset.data_table
+        # We add the pressure sensed by the phone (continuous numerical measurements) and aggregate by averaging again
+        # dataset.add_numerical_dataset('pressure_phone.csv', 'timestamps', ['pressure'], 'avg', 'press_phone_')
 
-    # Plot the data
-    DataViz = VisualizeDataset(__file__)
-
-    # Boxplot
-    DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
-
-    # Plot all data
-    DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
-                                  ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
-                                  ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
-
-    # And print a summary of the dataset.
-    util.print_statistics(dataset)
-    datasets.append(copy.deepcopy(dataset))
-
-    # If needed, we could save the various versions of the dataset we create in the loop with logical filenames:
-    # dataset.to_csv(RESULT_PATH / f'chapter2_result_{milliseconds_per_instance}')
+        # Get the resulting pandas data table
+        dataset = dataset.data_table
 
 
-# Make a table like the one shown in the book, comparing the two datasets produced.
-util.print_latex_table_statistics_two_datasets(datasets[0], datasets[1])
+        #if sum of labelswitch, labelsquad, labellunge, labeljumpingjack, labellegrase, labelcrunch, labelpushup is >1, then labelswitch = 0
+        dataset['sumlabels'] = dataset['labelswitch'] + dataset['labelsquad'] + dataset['labellunge'] + dataset['labeljumpingjack'] + dataset['labellegraise'] + dataset['labelcrunch'] + dataset['labelpushup']
+        for index, row in dataset.iterrows():
+            if row['sumlabels'] >1: 
+                dataset.at[index, 'labelswitch'] = 0
 
-# Finally, store the last dataset we generated (250 ms).
-dataset.to_csv(RESULT_PATH / RESULT_FNAME)
+        # Plot the data
+        DataViz = VisualizeDataset(__file__)
 
-# Lastly, print a statement to know the code went through
+        # Boxplot
+        DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
 
-print('The code has run through successfully!')
+        # Plot all data
+        DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
+                                    ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
+                                    ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
+
+        # And print a summary of the dataset.
+        util.print_statistics(dataset)
+        datasets.append(copy.deepcopy(dataset))
+
+        # If needed, we could save the various versions of the dataset we create in the loop with logical filenames:
+        # dataset.to_csv(RESULT_PATH / f'chapter2_result_{milliseconds_per_instance}')
+
+
+    # Make a table like the one shown in the book, comparing the two datasets produced.
+    util.print_latex_table_statistics_two_datasets(datasets[0], datasets[1])
+
+    # Finally, store the last dataset we generated (250 ms).
+    dataset.to_csv(RESULT_PATH / RESULT_FNAME)
+
+    # Lastly, print a statement to know the code went through
+
+    print('The code has run through successfully!')

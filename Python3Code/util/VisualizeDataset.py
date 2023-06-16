@@ -26,8 +26,9 @@ class VisualizeDataset:
     line_displays = ['-'] #, '--', ':', '-.']
     colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
 
+
     # Set some initial attributes to define and create a save location for the images.
-    def __init__(self, module_path='.py'):
+    def __init__(self,module_path='.py'):
         subdir = Path(module_path).name.split('.')[0]
 
         self.plot_number = 1
@@ -37,7 +38,7 @@ class VisualizeDataset:
 
     def save(self, plot_obj, formats=('png', 'pdf')): # 'svg'
 
-        fig_name = f'figure_{self.plot_number}'
+        fig_name = f'figureIvo_{self.plot_number}'
 
         for format in formats:
             save_path = self.figures_dir / f'{fig_name}.{format}'
@@ -312,7 +313,7 @@ class VisualizeDataset:
 
         # Select the colormap.
         cmap=plt.cm.Blues
-        plt.imshow(cm, interpolation='nearest', cmap=cmap)
+        plt.imshow(cm, interpoxfion='nearest', cmap=cmap)
         plt.title('confusion matrix')
         plt.colorbar()
         tick_marks = np.arange(len(classes))
