@@ -38,7 +38,7 @@ class VisualizeDataset:
 
     def save(self, plot_obj, formats=('png', 'pdf')): # 'svg'
 
-        fig_name = f'figureIvo_{self.plot_number}'
+        fig_name = f'figureJoost_{self.plot_number}'
 
         for format in formats:
             save_path = self.figures_dir / f'{fig_name}.{format}'
@@ -136,6 +136,7 @@ class VisualizeDataset:
         plt.show()
 
     def plot_dataset_boxplot(self, dataset, cols):
+        print(dataset)
         plt.Figure(); dataset[cols].plot.box()
         plt.ylim([-30,30])
         self.save(plt)

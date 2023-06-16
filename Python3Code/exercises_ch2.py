@@ -18,7 +18,7 @@ import os
 import sys
 import datetime
 
-participants = ['Ivo']
+participants = ['Joost']
 
 for participant in participants:
     # Chapter 2: Initial exploration of the dataset.
@@ -88,6 +88,7 @@ for participant in participants:
         for index, row in dataset.iterrows():
             if row['sumlabels'] >1: 
                 dataset.at[index, 'labelswitch'] = 0
+        dataset.drop('sumlabels', axis=1, inplace=True)
 
         # Plot the data
         DataViz = VisualizeDataset(__file__)
