@@ -7,7 +7,7 @@ import numpy as np
 # Not a class, just a bunch of useful functions.
 
 def get_chapter(module_path):
-    return re.search('_ch._', 'crowdsignals_ch3_outliers.py').group(0).strip('_')
+    return re.search('_ch._', 'exercises_ch3_outliers.py').group(0).strip('_') #Don't know what it does, but changed it to our filename since I saw this file is imported in 'exercises_ch5'
 
 def normalize_dataset(data_table, columns):
     dt_norm = copy.deepcopy(data_table)
