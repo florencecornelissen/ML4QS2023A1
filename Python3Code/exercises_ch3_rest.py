@@ -25,7 +25,7 @@ participant = 'Flo'
 
 # Set up the file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')    
-DATASET_FNAME = 'chapter3_result_outliers'+participant+'.csv'
+DATASET_FNAME = 'chapter3_result_outliersexercises'+participant+'.csv'
 RESULT_FNAME = 'chapter3_result_final'+participant+'.csv'
 ORIG_DATASET_FNAME = 'chapter2_resultexercises'+participant+'.csv'
 
