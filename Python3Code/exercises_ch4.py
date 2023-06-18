@@ -20,7 +20,7 @@ from Chapter4.TemporalAbstraction import CategoricalAbstraction
 from Chapter4.FrequencyAbstraction import FourierTransformation
 from Chapter4.TextAbstraction import TextAbstraction
 
-participant = 'Flo'
+participant = 'Ivo'
 
 # Read the result from the previous chapter, and make sure the index is of the type datetime.
 DATA_PATH = Path('./intermediate_datafiles/')
@@ -61,15 +61,15 @@ def main():
     if FLAGS.mode == 'aggregation':
         # Chapter 4: Identifying aggregate attributes.
 
-        # Set the window sizes to the number of instances representing 5 seconds, 30 seconds and 5 minutes
-        window_sizes = [int(float(5000)/milliseconds_per_instance), int(float(0.5*60000)/milliseconds_per_instance), int(float(5*60000)/milliseconds_per_instance)]
+        # Set the window sizes to the number of instances representing 1 second, 5 seconds and 30 seconds
+        window_sizes = [int(float(1000)/milliseconds_per_instance), int(float(5000)/milliseconds_per_instance), int(float(30000)/milliseconds_per_instance)]
 
          #please look in Chapter4 TemporalAbstraction.py to look for more aggregation methods or make your own.     
         
         for ws in window_sizes:
                    
             dataset = NumAbs.abstract_numerical(dataset, ['acc_phone_x'], ws, 'median')
-            dataset = NumAbs.abstract_numerical(dataset, ['acc_phone_x'], ws, 'IQR')
+            dataset = NumAbs.abstract_numerical(dataset, ['acc_phone_x'], ws, 'iqr')
 
         DataViz.plot_dataset(dataset, ['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'label'],
                              ['like', 'like', 'like', 'like', 'like',],
@@ -95,10 +95,12 @@ def main():
         selected_predictor_cols = [c for c in dataset.columns if not 'label' in c]
 
         dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'median')
-        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'IQR')
+        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'iqr')
         # TODO: Add your own aggregation methods here
         
-        DataViz.plot_dataset(dataset, ['acc_phone_x', 'gyr_phone_x', 'hr_watch_rate', 'light_phone_lux', 'mag_phone_x', 'press_phone_', 'pca_1', 'label'], ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'], ['line', 'line', 'line', 'line', 'line', 'line', 'line', 'points'])
+        DataViz.plot_dataset(dataset, ['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'pca_1', 'label'],
+                             ['like', 'like', 'like', 'like', 'like' , 'like'],
+                             ['line', 'line', 'line', 'line', 'line', 'points'])
 
      
         CatAbs = CategoricalAbstraction()
@@ -123,9 +125,9 @@ def main():
 
         dataset.to_csv(DATA_PATH / RESULT_FNAME)
 
-        DataViz.plot_dataset(dataset,['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'label'],
-                             ['like', 'like', 'like', 'like', 'like',],
-                             ['line', 'line', 'line', 'line', 'points'])
+        DataViz.plot_dataset(dataset,['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'pca_1', 'label'],
+                             ['like', 'like', 'like', 'like', 'like' , 'like'],
+                             ['line', 'line', 'line', 'line', 'line', 'points'])
         print("--- %s seconds ---" % (time.time() - start_time))
   
 if __name__ == '__main__':

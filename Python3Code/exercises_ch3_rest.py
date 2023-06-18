@@ -21,7 +21,7 @@ from Chapter3.DataTransformation import PrincipalComponentAnalysis
 from Chapter3.ImputationMissingValues import ImputationMissingValues
 from Chapter3.KalmanFilters import KalmanFilters
 
-participant = 'Ivo'
+participant = 'Joost'
 
 # Set up the file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')    
@@ -165,9 +165,9 @@ def main():
         dataset = PCA.apply_pca(copy.deepcopy(dataset), selected_predictor_cols, n_pcs)
 
         # And the overall final dataset:
-        DataViz.plot_dataset(dataset, ['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'label'],
-                             ['like', 'like', 'like', 'like', 'like',],
-                             ['line', 'line', 'line', 'line', 'points'])
+        DataViz.plot_dataset(dataset, ['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'pca_', 'label'],
+                             ['like', 'like', 'like', 'like', 'like', 'like', 'like'],
+                             ['line', 'line', 'line', 'line', 'line', 'points', 'points'])
 
         # Store the final outcome.
 

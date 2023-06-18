@@ -51,6 +51,10 @@ class NumericalAbstraction:
             return data.rolling(window, min_periods=window_size).std()
         elif aggregation_function == 'slope':
             return data.rolling(window, min_periods=window_size).apply(self.get_slope)
+        elif aggregation_function == 'iqr':
+            q1 = data.rolling(window, min_periods=window_size).quantile(0.25)
+            q3 = data.rolling(window, min_periods=window_size).quantile(0.75)
+            return q3 - q1
         
         #TODO: add your own aggregation function here
         else:
