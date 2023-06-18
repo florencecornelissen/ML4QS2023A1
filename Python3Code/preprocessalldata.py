@@ -16,7 +16,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
 
     # Loop through all files in the directory
     for filename in os.listdir(directory):
-        if filename.endswith('.csv') and filename != 'device.csv':  # Check if the file is a CSV file
+        if filename.endswith('.csv') and filename != 'device.csv' and filename != 'Barometer.csv' and filename != 'Location.csv' and filename != 'Proximity.csv':  # Check if the file is a CSV file
             file_path = os.path.join(directory, filename)
                 
             # Read the CSV file into a pandas DataFrame
@@ -42,7 +42,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
         
         # Loop through all files in the directory
         for filename in os.listdir(path):
-            if filename.endswith('.csv') and filename != 'device.csv':  # Check if the file is a CSV file
+            if filename.endswith('.csv') and filename != 'device.csv' and filename != 'Barometer.csv' and filename != 'Location.csv' and filename != 'Proximity.csv':  # Check if the file is a CSV file
                 file_path = os.path.join(path, filename)  # Use 'path' instead of 'directory'
                 
                 # Read the CSV file into a pandas DataFrame
@@ -72,12 +72,12 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
                 # print(combineddf[df])
 
     dataframes['Accelerometer'].rename(columns={'Time (s)': 'timestep', 'X (m/s^2)': 'x', 'Y (m/s^2)': 'y', 'Z (m/s^2)': 'z'}, inplace=True)
-    dataframes['Barometer'].rename(columns={'Time (s)': 'timestep', 'X (hPa)': 'x'}, inplace=True)
+    # dataframes['Barometer'].rename(columns={'Time (s)': 'timestep', 'X (hPa)': 'x'}, inplace=True)
     dataframes['Gyroscope'].rename(columns={'Time (s)': 'timestep', 'X (rad/s)': 'x', 'Y (rad/s)': 'y', 'Z (rad/s)': 'z'}, inplace=True)
     dataframes['Linear_Accelerometer'].rename(columns={'Time (s)': 'timestep', 'X (m/s^2)': 'x', 'Y (m/s^2)': 'y', 'Z (m/s^2)': 'z'}, inplace=True)
-    dataframes['Location'].rename(columns={'Time (s)': 'timestep', 'Latitude (°)': 'latitude', 'Longitude (°)': 'longitude', 'Height (m)': 'h', 'Velocity (m/s)': 'vel', 'Direction (°)': 'dir', 'Horizontal Accuracy (m)': 'hor_acc', 'Vertical Accuracy (°)': 'ver_acc'}, inplace=True)
+    # dataframes['Location'].rename(columns={'Time (s)': 'timestep', 'Latitude (°)': 'latitude', 'Longitude (°)': 'longitude', 'Height (m)': 'h', 'Velocity (m/s)': 'vel', 'Direction (°)': 'dir', 'Horizontal Accuracy (m)': 'hor_acc', 'Vertical Accuracy (°)': 'ver_acc'}, inplace=True)
     dataframes['Magnetometer'].rename(columns={'Time (s)': 'timestep', 'X (µT)': 'x', 'Y (µT)': 'y', 'Z (µT)': 'z'}, inplace=True)
-    dataframes['Proximity'].rename(columns={'Time (s)': 'timestep', 'Distance (cm)': 'dis'}, inplace=True)
+    # dataframes['Proximity'].rename(columns={'Time (s)': 'timestep', 'Distance (cm)': 'dis'}, inplace=True)
     dataframes['time'].rename(columns={'experiment time': 'experiment_time', 'system time': 'system_time', 'system time text': 'system_text_time'}, inplace=True)
     dataframes['time'] = dataframes['time'].drop(columns=['system_time', 'system_text_time'], axis=1)
 
@@ -232,7 +232,7 @@ def preprocessdatatotal(participant, indicesbegin, indicesend):
 
     # Loop through all files in the directory
     for filename in os.listdir(directory):
-        if filename.endswith('.csv') and filename != 'device.csv':  # Check if the file is a CSV file
+        if filename.endswith('.csv') and filename != 'device.csv' and filename != 'Barometer.csv' and filename != 'Location.csv' and filename != 'Proximity.csv':  # Check if the file is a CSV file
             file_path = os.path.join(directory, filename)
                 
             # Read the CSV file into a pandas DataFrame

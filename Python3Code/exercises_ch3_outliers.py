@@ -17,7 +17,7 @@ import numpy as np
 from pathlib import Path
 import argparse
 
-participant = 'Flo'
+participant = 'Ivo'
 
 # Set up file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')

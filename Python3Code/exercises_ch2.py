@@ -18,7 +18,7 @@ import os
 import sys
 import datetime
 
-participants = ['Flo']
+participants = ['Ivo']
 
 for participant in participants:
     # Chapter 2: Initial exploration of the dataset.
@@ -49,7 +49,7 @@ for participant in participants:
         # and aggregate the values per timestep by averaging the values
         dataset.add_numerical_dataset('Accelerometer'+participant+'.csv', 'timestamps', ['x','y','z'], 'avg', 'acc_phone_')
 
-        dataset.add_numerical_dataset('Barometer'+participant+'.csv', 'timestamps', ['x'], 'avg', 'bar_phone_')
+        # dataset.add_numerical_dataset('Barometer'+participant+'.csv', 'timestamps', ['x'], 'avg', 'bar_phone_')
 
         # We add the gyroscope data (continuous numerical measurements) of the phone and the smartwatch
         # and aggregate the values per timestep by averaging the values
@@ -65,12 +65,12 @@ for participant in participants:
         # dataset.add_event_dataset('labels.csv', 'label_start', 'label_end', 'label', 'binary')
 
         # We add the amount of light sensed by the phone (continuous numerical measurements) and aggregate by averaging
-        dataset.add_numerical_dataset('Location'+participant+'.csv', 'timestamps', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
+        # dataset.add_numerical_dataset('Location'+participant+'.csv', 'timestamps', ['latitude', 'longitude', 'h', 'vel', 'dir', 'hor_acc', 'ver_acc'], 'avg', 'loc_phone_')
 
         # We add the magnetometer data (continuous numerical measurements) of the phone and the smartwatch
         # and aggregate the values per timestep by averaging the values
         dataset.add_numerical_dataset('Magnetometer'+participant+'.csv', 'timestamps', ['x','y','z'], 'avg', 'mag_phone_')
-        dataset.add_numerical_dataset('Proximity'+participant+'.csv', 'timestamps', ['dis'], 'avg', 'dist_phone_')
+        # dataset.add_numerical_dataset('Proximity'+participant+'.csv', 'timestamps', ['dis'], 'avg', 'dist_phone_')
 
         dataset.add_event_dataset('time'+participant+'.csv', 'label_start', 'label_end', 'label', 'binary')
 
@@ -97,9 +97,9 @@ for participant in participants:
         DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z'])
 
         # Plot all data
-        DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
-                                    ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
-                                    ['line', 'line', 'line', 'line', 'line', 'line', 'line', 'points'])
+        DataViz.plot_dataset(dataset, ['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'label'], 
+                                    ['like', 'like', 'like', 'like', 'like'],
+                                    ['line', 'line', 'line', 'line', 'points'])
 
         # And print a summary of the dataset.
         util.print_statistics(dataset)
