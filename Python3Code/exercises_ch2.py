@@ -18,7 +18,7 @@ import os
 import sys
 import datetime
 
-participants = ['Joost']
+participants = ['Flo']
 
 for participant in participants:
     # Chapter 2: Initial exploration of the dataset.
@@ -99,7 +99,7 @@ for participant in participants:
         # Plot all data
         DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'], 
                                     ['like', 'like', 'like', 'like', 'like', 'like', 'like','like'],
-                                    ['line', 'line', 'line', 'line', 'line', 'line', 'points', 'points'])
+                                    ['line', 'line', 'line', 'line', 'line', 'line', 'line', 'points'])
 
         # And print a summary of the dataset.
         util.print_statistics(dataset)
