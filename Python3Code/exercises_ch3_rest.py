@@ -21,7 +21,7 @@ from Chapter3.DataTransformation import PrincipalComponentAnalysis
 from Chapter3.ImputationMissingValues import ImputationMissingValues
 from Chapter3.KalmanFilters import KalmanFilters
 
-participant = 'Flo'
+participant = 'Ivo'
 
 # Set up the file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')    
@@ -141,7 +141,7 @@ def main():
             dataset = MisVal.impute_interpolate(dataset, col)
 
         # And now let us include all LOWPASS measurements that have a form of periodicity (and filter them):
-        periodic_measurements = 'acc_phone_x', 'acc_phone_y', 'acc_phone_z', 'gyr_phone_x', 'gyr_phone_y', 'gyr_phone_z', 'mag_phone_x', 'mag_phone_y', 'mag_phone_z', 'linacc_phone_x', 'linacc_phone_y', 'linacc_phone_z']
+        periodic_measurements = ['acc_phone_x', 'acc_phone_y', 'acc_phone_z', 'gyr_phone_x', 'gyr_phone_y', 'gyr_phone_z', 'mag_phone_x', 'mag_phone_y', 'mag_phone_z', 'linacc_phone_x', 'linacc_phone_y', 'linacc_phone_z']
 
         
         # Let us apply a lowpass filter and reduce the importance of the data above 1.5 Hz
@@ -165,10 +165,9 @@ def main():
         dataset = PCA.apply_pca(copy.deepcopy(dataset), selected_predictor_cols, n_pcs)
 
         # And the overall final dataset:
-        DataViz.plot_dataset(dataset, ['acc_phone_', 'bar_phone_', 'gyr_phone_', 'linacc_phone_', 'loc_phone_', 'mag_phone_', 'dist_phone_', 'label'],
-                             ['like', 'like', 'like', 'like', 'like',
-                                 'like', 'like', 'like'],
-                             ['line', 'line', 'line', 'line', 'line', 'line', 'line', 'points'])
+        DataViz.plot_dataset(dataset, ['acc_phone_', 'gyr_phone_', 'linacc_phone_', 'mag_phone_', 'label'],
+                             ['like', 'like', 'like', 'like', 'like',],
+                             ['line', 'line', 'line', 'line', 'points'])
 
         # Store the final outcome.
 
