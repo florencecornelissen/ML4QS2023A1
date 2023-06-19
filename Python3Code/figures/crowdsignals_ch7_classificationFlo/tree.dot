@@ -1,0 +1,32 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="gyr_phone_y_temp_iqr_ws_300 <= 1.032\ngini = 0.81\nsamples = 40\nvalue = [9, 7, 7, 10, 4, 3]\nclass = labellunge"] ;
+1 [label="pca_3 <= -0.066\ngini = 0.773\nsamples = 30\nvalue = [9, 7, 7, 0, 4, 3]\nclass = labelcrunch"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="linacc_phone_x_freq_1.2_Hz_ws_100 <= 3.733\ngini = 0.18\nsamples = 10\nvalue = [9, 0, 0, 0, 0, 1]\nclass = labelcrunch"] ;
+1 -> 2 ;
+3 [label="gini = 0.0\nsamples = 8\nvalue = [8, 0, 0, 0, 0, 0]\nclass = labelcrunch"] ;
+2 -> 3 ;
+4 [label="gini = 0.5\nsamples = 2\nvalue = [1, 0, 0, 0, 0, 1]\nclass = labelcrunch"] ;
+2 -> 4 ;
+5 [label="gyr_phone_y_temp_iqr_ws_300 <= 0.856\ngini = 0.705\nsamples = 20\nvalue = [0, 7, 7, 0, 4, 2]\nclass = labeljumpingjack"] ;
+1 -> 5 ;
+6 [label="acc_phone_y_temp_median_ws_300 <= -4.9\ngini = 0.611\nsamples = 12\nvalue = [0, 0, 6, 0, 4, 2]\nclass = labellegraise"] ;
+5 -> 6 ;
+7 [label="gini = 0.0\nsamples = 6\nvalue = [0, 0, 6, 0, 0, 0]\nclass = labellegraise"] ;
+6 -> 7 ;
+8 [label="gyr_phone_z_freq_2.0_Hz_ws_100 <= 0.258\ngini = 0.444\nsamples = 6\nvalue = [0, 0, 0, 0, 4, 2]\nclass = labelpushup"] ;
+6 -> 8 ;
+9 [label="gini = 0.0\nsamples = 4\nvalue = [0, 0, 0, 0, 4, 0]\nclass = labelpushup"] ;
+8 -> 9 ;
+10 [label="gini = 0.0\nsamples = 2\nvalue = [0, 0, 0, 0, 0, 2]\nclass = labelswitch"] ;
+8 -> 10 ;
+11 [label="gyr_phone_y_freq_0.2_Hz_ws_100 <= 2.627\ngini = 0.219\nsamples = 8\nvalue = [0, 7, 1, 0, 0, 0]\nclass = labeljumpingjack"] ;
+5 -> 11 ;
+12 [label="gini = 0.0\nsamples = 6\nvalue = [0, 6, 0, 0, 0, 0]\nclass = labeljumpingjack"] ;
+11 -> 12 ;
+13 [label="gini = 0.5\nsamples = 2\nvalue = [0, 1, 1, 0, 0, 0]\nclass = labeljumpingjack"] ;
+11 -> 13 ;
+14 [label="gini = 0.0\nsamples = 10\nvalue = [0, 0, 0, 10, 0, 0]\nclass = labellunge"] ;
+0 -> 14 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+}
