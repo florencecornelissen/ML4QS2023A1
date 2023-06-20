@@ -91,7 +91,7 @@ def main():
     if FLAGS.mode == 'final':
         
 
-        ws = int(float(2000)/milliseconds_per_instance)
+        ws = int(float(5000)/milliseconds_per_instance)
         fs = float(1000)/milliseconds_per_instance
 
         selected_predictor_cols = [c for c in dataset.columns if not 'label' in c]
