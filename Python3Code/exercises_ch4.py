@@ -20,7 +20,7 @@ from Chapter4.TemporalAbstraction import CategoricalAbstraction
 from Chapter4.FrequencyAbstraction import FourierTransformation
 from Chapter4.TextAbstraction import TextAbstraction
 
-participant = 'Ivo'
+participant = 'Flo'
 
 # Read the result from the previous chapter, and make sure the index is of the type datetime.
 DATA_PATH = Path('./intermediate_datafiles/')
@@ -62,8 +62,10 @@ def main():
         # Chapter 4: Identifying aggregate attributes.
 
         # Set the window sizes to the number of instances representing 1 second, 5 seconds and 30 seconds
-        window_sizes = [int(float(1000)/milliseconds_per_instance), int(float(5000)/milliseconds_per_instance), int(float(30000)/milliseconds_per_instance)]
+        # window_sizes = [int(float(1000)/milliseconds_per_instance), int(float(5000)/milliseconds_per_instance), int(float(30000)/milliseconds_per_instance)]
+        window_sizes = [int(float(1000)/milliseconds_per_instance)]
 
+                       
          #please look in Chapter4 TemporalAbstraction.py to look for more aggregation methods or make your own.     
         
         for ws in window_sizes:
@@ -80,7 +82,7 @@ def main():
         # Now we move to the frequency domain, with the same window size.
        
         fs = float(1000)/milliseconds_per_instance
-        ws = int(float(10000)/milliseconds_per_instance)
+        ws = int(float(1000)/milliseconds_per_instance)
         dataset = FreqAbs.abstract_frequency(dataset, ['acc_phone_x'], ws, fs)
         # Spectral analysis.
         DataViz.plot_dataset(dataset, ['acc_phone_x_max_freq', 'acc_phone_x_freq_weighted', 'acc_phone_x_pse', 'label'], ['like', 'like', 'like', 'like'], ['line', 'line', 'line','points'])
@@ -89,7 +91,7 @@ def main():
     if FLAGS.mode == 'final':
         
 
-        ws = int(float(0.5*60000)/milliseconds_per_instance)
+        ws = int(float(2000)/milliseconds_per_instance)
         fs = float(1000)/milliseconds_per_instance
 
         selected_predictor_cols = [c for c in dataset.columns if not 'label' in c]
@@ -105,14 +107,14 @@ def main():
      
         CatAbs = CategoricalAbstraction()
         
-        dataset = CatAbs.abstract_categorical(dataset, ['label'], ['like'], 0.03, int(float(5*60000)/milliseconds_per_instance), 2)
+        dataset = CatAbs.abstract_categorical(dataset, ['label'], ['like'], 0.03, int(float(10000)/milliseconds_per_instance), 2)
 
 
         periodic_predictor_cols = ['acc_phone_x', 'acc_phone_y', 'acc_phone_z', 'gyr_phone_x', 'gyr_phone_y', 'gyr_phone_z', 'mag_phone_x', 'mag_phone_y', 'mag_phone_z', 'linacc_phone_x', 'linacc_phone_y', 'linacc_phone_z']
 
 
         
-        dataset = FreqAbs.abstract_frequency(copy.deepcopy(dataset), periodic_predictor_cols, int(float(10000)/milliseconds_per_instance), fs)
+        dataset = FreqAbs.abstract_frequency(copy.deepcopy(dataset), periodic_predictor_cols, int(float(5000)/milliseconds_per_instance), fs)
 
 
         # Now we only take a certain percentage of overlap in the windows, otherwise our training examples will be too much alike.
