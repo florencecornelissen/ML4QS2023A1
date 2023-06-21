@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import argparse
 
-participant = 'Flo'
+participant = 'Joost'
 
 def main():
 
