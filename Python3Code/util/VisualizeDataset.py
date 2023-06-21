@@ -38,7 +38,7 @@ class VisualizeDataset:
 
     def save(self, plot_obj, formats=('png', 'pdf')): # 'svg'
 
-        fig_name = f'figureFlo_{self.plot_number}'
+        fig_name = f'figureJoost_{self.plot_number}'
 
         for format in formats:
             save_path = self.figures_dir / f'{fig_name}.{format}'
