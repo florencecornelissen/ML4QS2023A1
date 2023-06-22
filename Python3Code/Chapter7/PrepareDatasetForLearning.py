@@ -139,7 +139,7 @@ class PrepareDatasetForLearning:
         if unknown_users:
             # Shuffle the users we have.
             random.seed(random_state)
-            indices = range(0, len(datasets))
+            indices = list(range(0, len(datasets)))
             random.shuffle(indices)
             training_len = int(training_frac * len(datasets))
 
@@ -148,7 +148,7 @@ class PrepareDatasetForLearning:
             for i in range(0, training_len):
                 # We use the single dataset function for classification and add it to the training data
                 training_set_X_person, test_set_X_person, training_set_y_person, test_set_y_person = self.split_single_dataset_classification(datasets[indices[i]], class_labels, matching,
-                                                                                                                                              1, filter=filter, temporal=temporal, random_state=random_state)
+                                                                                                                                              0.9, filter=filter, temporal=temporal, random_state=random_state)
                 # We add a person column.
                 training_set_X_person[self.person_col] = indices[i]
                 training_set_X = self.update_set(training_set_X, training_set_X_person)
@@ -157,7 +157,7 @@ class PrepareDatasetForLearning:
             for j in range(training_len, len(datasets)):
                 # We use the single dataset function for classification and add it to the test data
                 training_set_X_person, test_set_X_person, training_set_y_person, test_set_y_person = self.split_single_dataset_classification(datasets[indices[j]], class_labels, matching,
-                                                                                                                                              1, filter=filter, temporal=temporal, random_state=random_state)
+                                                                                                                                              0.9, filter=filter, temporal=temporal, random_state=random_state)
                 # We add a person column.
                 training_set_X_person[self.person_col] = indices[j]
                 test_set_X = self.update_set(test_set_X, training_set_X_person)

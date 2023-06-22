@@ -38,7 +38,7 @@ class VisualizeDataset:
 
     def save(self, plot_obj, formats=('png', 'pdf')): # 'svg'
 
-        fig_name = f'figureJoost_{self.plot_number}'
+        fig_name = f'figureFlo_individual_{self.plot_number}'
 
         for format in formats:
             save_path = self.figures_dir / f'{fig_name}.{format}'
@@ -314,7 +314,7 @@ class VisualizeDataset:
 
         # Select the colormap.
         cmap=plt.cm.Blues
-        plt.imshow(cm, interpoxfion='nearest', cmap=cmap)
+        plt.imshow(cm, interpolation='nearest', cmap=cmap)
         plt.title('confusion matrix')
         plt.colorbar()
         tick_marks = np.arange(len(classes))
