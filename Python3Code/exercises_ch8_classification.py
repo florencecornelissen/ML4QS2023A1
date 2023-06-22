@@ -12,9 +12,10 @@ from Chapter7.PrepareDatasetForLearning import PrepareDatasetForLearning
 from Chapter7.Evaluation import RegressionEvaluation, ClassificationEvaluation
 from Chapter8.LearningAlgorithmsTemporal import TemporalClassificationAlgorithms
 from Chapter8.LearningAlgorithmsTemporal import TemporalRegressionAlgorithms
+from Chapter7.FeatureSelection import FeatureSelectionClassification
 from statsmodels.tsa.stattools import adfuller
 from pandas.plotting import autocorrelation_plot
-from exercises_ch7_classification_individual import used_features
+# from exercises_ch7_classification_individual import used_features
 
 import sys
 import copy
@@ -26,6 +27,8 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 participant = 'Flo'
+
+N_FORWARD_SELECTION = 50
 
 # Set up file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')
@@ -83,6 +86,29 @@ print('#cluster features: ', len(cluster_features))
 features_after_chapter_3 = list(set().union(basic_features, pca_features))
 features_after_chapter_4 = list(set().union(basic_features, pca_features, time_features, freq_features))
 features_after_chapter_5 = list(set().union(basic_features, pca_features, time_features, freq_features, cluster_features))
+
+
+fs = FeatureSelectionClassification()
+
+features, ordered_features, ordered_scores = fs.forward_selection(N_FORWARD_SELECTION,
+                                                                  train_X[features_after_chapter_5],
+                                                                  test_X[features_after_chapter_5],
+                                                                  train_y,
+                                                                  test_y,
+                                                                  gridsearch=False)
+
+DataViz.plot_xy(x=[range(1, N_FORWARD_SELECTION+1)], y=[ordered_scores],
+                xlabel='number of features', ylabel='accuracy')
+
+
+used_features = []
+for i in range(len(ordered_features)-1):
+    if ordered_scores[len(ordered_features)-1]>ordered_scores[i]:
+        used_features.append(ordered_features[i])
+        used_features.append(ordered_features[i+1])
+
+selected_features = used_features
+
 
 selected_features = used_features
 possible_feature_sets = [basic_features, features_after_chapter_3, features_after_chapter_4, features_after_chapter_5, selected_features]

@@ -75,6 +75,7 @@ prepare = PrepareDatasetForLearning()
 
 train_X, test_X, train_y, test_y = prepare.split_single_dataset_classification(dataset, ['label'], 'like', 0.7, filter=True, temporal=False)
 
+
 print('Training set length is: ', len(train_X.index))
 print('Test set length is: ', len(test_X.index))
 
