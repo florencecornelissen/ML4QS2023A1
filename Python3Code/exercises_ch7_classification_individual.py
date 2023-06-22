@@ -73,7 +73,7 @@ DataViz = VisualizeDataset(__file__)
 prepare = PrepareDatasetForLearning()
 
 
-train_X, test_X, train_y, test_y = prepare.split_single_dataset_classification(dataset1, ['label'], 'like', 0.7, filter=True, temporal=False)
+train_X, test_X, train_y, test_y = prepare.split_single_dataset_classification(dataset, ['label'], 'like', 0.7, filter=True, temporal=False)
 
 print('Training set length is: ', len(train_X.index))
 print('Test set length is: ', len(test_X.index))
@@ -111,8 +111,8 @@ DataViz.plot_xy(x=[range(1, N_FORWARD_SELECTION+1)], y=[ordered_scores],
 
 
 used_features = []
-for i in range(len(ordered_features)-5):
-    if ordered_scores[i+5]>ordered_scores[i]:
+for i in range(len(ordered_features)-1):
+    if ordered_scores[len(ordered_features)-1]>ordered_scores[i]:
         used_features.append(ordered_features[i])
         used_features.append(ordered_features[i+1])
 

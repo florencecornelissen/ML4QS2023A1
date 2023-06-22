@@ -24,47 +24,46 @@ import numpy as np
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 
-participant = 'Flo'
-
 # Set up file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')
-DATASET_FNAME = 'chapter2_result'+participant+'.csv'
-RESULT_FNAME =  'chapter3_result_outliers'+participant+'.csv'
+DATASET_FNAME1 = 'chapter5_resultIvo.csv'
+DATASET_FNAME2 = 'chapter5_resultJoost.csv'
+DATASET_FNAME3 = 'chapter5_resultFlo.csv'
+# RESULT_FNAME =  'chapter3_result_outliers'+participant+'.csv'
 
 # Next, import the data from the specified location and parse the date index.
 try:
-    dataset = pd.read_csv(Path(DATA_PATH / DATASET_FNAME), index_col=0)
-    dataset.index = pd.to_datetime(dataset.index)
+    dataset1 = pd.read_csv(DATA_PATH / DATASET_FNAME1, index_col=0)
+    dataset2 = pd.read_csv(DATA_PATH / DATASET_FNAME2, index_col=0)
+    dataset3 = pd.read_csv(DATA_PATH / DATASET_FNAME3, index_col=0)
 except IOError as e:
     print('File not found, try to run previous crowdsignals scripts first!')
     raise e
+
+# common_columns = set(dataset1.columns) & set(dataset2.columns) & set(dataset3.columns)
+# dataset1 = dataset1[common_columns]
+# dataset2 = dataset2[common_columns]
+# dataset3 = dataset3[common_columns]
+
+# dataset = pd.concat([dataset1, dataset2, dataset3], ignore_index=True)
+
+# Make the dataset ready for regression
+datasets = [dataset1, dataset2, dataset3]
+for dataset in datasets:
+    dataset['exercise'] = dataset['labelswitch'] * 0 + dataset['labelsquad'] * 1 + dataset['labellunge'] * 2 + dataset['labeljumpingjack'] * 3 + dataset['labellegraise'] * 4 + dataset['labelcrunch'] *5 + dataset['labelpushup'] * 6
+    dataset.drop(columns=['labelswitch', 'labelsquad', 'labellunge', 'labeljumpingjack', 'labellegraise', 'labelcrunch', 'labelpushup'], inplace=True)
+    dataset.index = pd.to_datetime(dataset.index)
 
 # We'll create an instance of our visualization class to plot the results.
 DataViz = VisualizeDataset(__file__)
-
-# Of course we repeat some stuff from Chapter 3, namely to load the dataset
-
-# Read the result from the previous chapter, and make sure the index is of the type datetime.
-DATA_PATH = Path('./intermediate_datafiles/')
-DATASET_FNAME = 'chapter5_result.csv'
-
-DataViz = VisualizeDataset(__file__)
-
-try:
-    dataset = pd.read_csv(DATA_PATH / DATASET_FNAME, index_col=0)
-except IOError as e:
-    print('File not found, try to run previous crowdsignals scripts first!')
-    raise e
-
-dataset.index = pd.to_datetime(dataset.index)
 
 # Let us consider our second task, namely the prediction of the heart rate. We consider this as a temporal task.
 
 prepare = PrepareDatasetForLearning()
 
-train_X, test_X, train_y, test_y = prepare.split_single_dataset_regression_by_time(dataset, 'hr_watch_rate', '2016-02-08 18:29:56',
+train_X, test_X, train_y, test_y = prepare.split_multiple_datasets_regression(datasets, 'exercise', dataset['Unnamed: 0'][0],
 #                                                                                   '2016-02-08 18:29:58','2016-02-08 18:29:59')
-                                                                                   '2016-02-08 19:34:07', '2016-02-08 20:07:50')
+                                                                                   dataset['Unnamed: 0'][int(len(dataset.index)*0.7)], dataset['Unnamed: 0'][-1])
 
 print('Training set length is: ', len(train_X.index))
 print('Test set length is: ', len(test_X.index))
