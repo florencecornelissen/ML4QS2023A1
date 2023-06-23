@@ -17,7 +17,7 @@ import numpy as np
 from pathlib import Path
 import argparse
 
-participant = 'Flo'
+participant = 'Ivo'
 
 # Set up file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')
@@ -96,6 +96,8 @@ def main():
                 print(
                     'Not enough memory available for simple distance-based outlier detection...')
                 print('Skipping.')
+            
+        dataset.to_csv(DATA_PATH / RESULT_FNAME)
 
     elif FLAGS.mode == 'LOF':
         for col in outlier_columns:
