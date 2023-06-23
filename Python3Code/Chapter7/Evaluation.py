@@ -28,7 +28,8 @@ class ClassificationEvaluation:
     # Note that it returns the recall per class.
     def recall(self, y_true, y_pred):
         return metrics.recall_score(y_true, y_pred, average=None)
-
+    
+    
     # Returns the f1 given the true and predicted values.
     # Note that it returns the recall per class.
     def f1(self, y_true, y_pred):

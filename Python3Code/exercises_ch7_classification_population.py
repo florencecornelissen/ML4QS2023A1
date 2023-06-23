@@ -240,6 +240,8 @@ for i in range(0, len(possible_feature_sets)):
     
     performance_tr_dt = eval.accuracy(train_y, class_train_y)
     performance_te_dt = eval.accuracy(test_y, class_test_y)
+    mse = eval.mean_square_error(test_y, class_test_y)
+    print('')
     # print("Training Naive Bayes run 1/1 featureset {}:".format(feature_names[i]))
     # class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.naive_bayes(
     #     selected_train_X, train_y, selected_test_X
