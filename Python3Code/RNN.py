@@ -17,9 +17,10 @@ import numpy as np
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
-from keras.layers import Dense, SimpleRNN, BatchNormalization
+from sklearn.preprocessing import StandardScaler
+from keras.layers import Dense, SimpleRNN, BatchNormalization, Dropout
 import numpy as np
-
+from tensorflow import keras
 
 
 from pathlib import Path
@@ -38,7 +39,7 @@ try:
     dataset2 = pd.read_csv(DATA_PATH / DATASET_FNAME2, index_col=0)
     dataset3 = pd.read_csv(DATA_PATH / DATASET_FNAME3, index_col=0)
 except IOError as e:
-    print('File not found, try to run previous crowdsignals scripts first!')
+    print('File not found, try to run previous exercises scripts first!')
     raise e
 
 common_columns = set(dataset1.columns) & set(dataset2.columns) & set(dataset3.columns)
@@ -70,7 +71,6 @@ test_y_no_dummy = test_y
 train_y = pd.get_dummies(train_y)
 test_y = pd.get_dummies(test_y)
 
-
 train_y_mode = train_y_no_dummy.iloc[::10, :].mode(axis=1)[0]
 train_y_mode = pd.get_dummies(train_y_no_dummy)
 
@@ -86,13 +86,6 @@ num_classes = train_y.shape[1]
 batch_size = 16
 feature_dim = train_X.shape[1]  # Adjusted to use the correct dimension
 
-# # Reshape your input data to have the appropriate shape
-# train_X = np.random.random([965, feature_dim]).astype(np.float32)
-
-
-# train_y = train_y_mode
-# test_y = test_y_mode
-
 
 train_X = np.reshape(train_X.values[:900], (-1, 10, train_X.shape[1]))  # Reshape to (samples, timesteps, features)
 train_y = np.reshape(train_y_mode.values[:90], (90, 7))  # Reshape to (samples, timesteps, features)
@@ -103,16 +96,25 @@ test_X = np.reshape(test_X.values[:270], (-1, 10, test_X.shape[1]))  # Reshape t
 test_y = np.reshape(test_y_mode.values[:27], (27,7))  # Reshape to (samples, timesteps, features)
 # print(test_X)
 
+np.random.seed(123)
+
+# Normalize the input data
+scaler = StandardScaler()
+train_X = scaler.fit_transform(train_X.reshape(-1, train_X.shape[-1])).reshape(train_X.shape)
+test_X = scaler.transform(test_X.reshape(-1, test_X.shape[-1])).reshape(test_X.shape)
 
 # Define the model
 model = Sequential()
 model.add(SimpleRNN(num_classes, activation='relu', input_shape=(train_X.shape[1], train_X.shape[2])))  # RNN layer
+model.add(Dropout(0.2))  # Dropout layer for regularization
 model.add(Dense(num_classes, activation='softmax'))  # Output layer
 model.add(BatchNormalization())
 
-
 # Compile the model
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+# model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+learning_rate = 0.001
+optimizer = keras.optimizers.Adam(learning_rate=learning_rate)
+model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
 # Train the model
 print('train x shape',train_X.shape)

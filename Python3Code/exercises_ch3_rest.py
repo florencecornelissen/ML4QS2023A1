@@ -21,7 +21,7 @@ from Chapter3.DataTransformation import PrincipalComponentAnalysis
 from Chapter3.ImputationMissingValues import ImputationMissingValues
 from Chapter3.KalmanFilters import KalmanFilters
 
-participant = 'Joost'
+participant = 'Flo'
 
 # Set up the file names and locations.
 DATA_PATH = Path('./intermediate_datafiles/')    
@@ -63,14 +63,14 @@ def main():
     if FLAGS.mode == 'imputation':
         # Let us impute the missing values and plot an example.
        
-        imputed_mean_dataset = MisVal.impute_mean(copy.deepcopy(dataset), 'loc_phone_latitude')       
-        imputed_median_dataset = MisVal.impute_median(copy.deepcopy(dataset), 'loc_phone_latitude')
-        imputed_interpolation_dataset = MisVal.impute_interpolate(copy.deepcopy(dataset), 'loc_phone_latitude')
+        imputed_mean_dataset = MisVal.impute_mean(copy.deepcopy(dataset), 'acc_phone_x')       
+        imputed_median_dataset = MisVal.impute_median(copy.deepcopy(dataset), 'acc_phone_x')
+        imputed_interpolation_dataset = MisVal.impute_interpolate(copy.deepcopy(dataset), 'acc_phone_x')
         
         DataViz.plot_imputed_values(dataset, ['original', 'mean', 'median', 'interpolation'], 'acc_phone_x',
-                                    imputed_mean_dataset['loc_phone_latitude'], 
-                                    imputed_median_dataset['loc_phone_latitude'],
-                                    imputed_interpolation_dataset['loc_phone_latitude'])
+                                    imputed_mean_dataset['acc_phone_x'], 
+                                    imputed_median_dataset['acc_phone_x'],
+                                    imputed_interpolation_dataset['acc_phone_x'])
 
     elif FLAGS.mode == 'kalman':
         # Using the result from Chapter 2, let us try the Kalman filter on the light_phone_lux attribute and study the result.

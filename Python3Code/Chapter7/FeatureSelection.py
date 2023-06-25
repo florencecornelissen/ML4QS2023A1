@@ -50,7 +50,7 @@ class FeatureSelectionClassification:
                 pred_y_train, pred_y_test, prob_training_y, prob_test_y = ca.decision_tree(X_train[temp_selected_features],
                                                                                            y_train,
                                                                                            X_test[temp_selected_features],
-                                                                                           gridsearch=False)
+                                                                                           gridsearch=True)
                 perf = ce.accuracy(y_test, pred_y_test)
 
                 # If the performance is better than what we have seen so far (we aim for high accuracy)

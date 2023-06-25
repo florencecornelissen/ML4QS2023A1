@@ -148,7 +148,7 @@ def main():
 
         # Determine the sampling frequency.
         fs = float(1000)/milliseconds_per_instance
-        cutoff = 1.5
+        cutoff = 5
 
         for col in periodic_measurements:
             dataset = LowPass.low_pass_filter(

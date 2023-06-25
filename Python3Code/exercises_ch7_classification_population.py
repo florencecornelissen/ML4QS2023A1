@@ -48,7 +48,7 @@ try:
     dataset3 = pd.read_csv(DATA_PATH / DATASET_FNAME3, index_col=0)
     # dataset = pd.read_csv(DATA_PATH / DATASET_FNAME, index_col=0)
 except IOError as e:
-    print('File not found, try to run previous crowdsignals scripts first!')
+    print('File not found, try to run previous exercises scripts first!')
     raise e
 
 # dataset = pd.concat([dataset1, dataset2], ignore_index=True)
@@ -93,25 +93,27 @@ features_after_chapter_5 = list(set().union(basic_features, pca_features, time_f
 
 fs = FeatureSelectionClassification()
 
-features, ordered_features, ordered_scores = fs.forward_selection(N_FORWARD_SELECTION,
-                                                                  train_X[features_after_chapter_5],
-                                                                  test_X[features_after_chapter_5],
-                                                                  train_y,
-                                                                  test_y,
-                                                                  gridsearch=False)
+# features, ordered_features, ordered_scores = fs.forward_selection(N_FORWARD_SELECTION,
+#                                                                   train_X[features_after_chapter_5],
+#                                                                   test_X[features_after_chapter_5],
+#                                                                   train_y,
+#                                                                   test_y,
+#                                                                   gridsearch=True)
 
-DataViz.plot_xy(x=[range(1, N_FORWARD_SELECTION+1)], y=[ordered_scores],
-                xlabel='number of features', ylabel='accuracy')
+# DataViz.plot_xy(x=[range(1, N_FORWARD_SELECTION+1)], y=[ordered_scores],
+#                 xlabel='number of features', ylabel='accuracy')
 
 
-used_features = []
-for i in range(len(ordered_features)-1):
-    if ordered_scores[len(ordered_features)-1]>ordered_scores[i]:
-        used_features.append(ordered_features[i])
-        used_features.append(ordered_features[i+1])
+# used_features = []
+# for i in range(len(ordered_features)-1):
+#     if ordered_scores[len(ordered_features)-1]>ordered_scores[i]:
+#         used_features.append(ordered_features[i])
+#         used_features.append(ordered_features[i+1])
 
-selected_features = used_features
+# selected_features = used_features
+# print('those are the selected features using GridSearchCV:', selected_features)
 
+selected_features= ['linacc_phone_y_freq_0.0_Hz_ws_50', 'acc_phone_y_freq_0.0_Hz_ws_50', 'acc_phone_y_freq_0.0_Hz_ws_50', 'gyr_phone_y_freq_0.0_Hz_ws_50', 'gyr_phone_y_freq_0.0_Hz_ws_50', 'mag_phone_x_max_freq', 'mag_phone_x_max_freq', 'acc_phone_z_freq_0.2_Hz_ws_50', 'acc_phone_z_freq_0.2_Hz_ws_50', 'gyr_phone_x_freq_0.2_Hz_ws_50', 'gyr_phone_x_freq_0.2_Hz_ws_50', 'acc_phone_y_freq_1.0_Hz_ws_50', 'acc_phone_y_freq_1.0_Hz_ws_50', 'linacc_phone_y_freq_0.2_Hz_ws_50', 'linacc_phone_y_freq_0.2_Hz_ws_50', 'linacc_phone_z_freq_weighted', 'linacc_phone_z_freq_weighted', 'gyr_phone_x_freq_4.6_Hz_ws_50', 'gyr_phone_x_freq_4.6_Hz_ws_50', 'acc_phone_y_freq_0.6_Hz_ws_50', 'acc_phone_y_freq_0.6_Hz_ws_50', 'acc_phone_x_freq_1.0_Hz_ws_50', 'acc_phone_x_freq_1.0_Hz_ws_50', 'acc_phone_x_freq_1.2_Hz_ws_50', 'acc_phone_x_freq_1.2_Hz_ws_50', 'linacc_phone_x_max_freq', 'linacc_phone_x_max_freq', 'gyr_phone_x_freq_3.4_Hz_ws_50', 'gyr_phone_x_freq_3.4_Hz_ws_50', 'gyr_phone_x_freq_3.8_Hz_ws_50', 'gyr_phone_x_freq_3.8_Hz_ws_50', 'linacc_phone_z_freq_1.8_Hz_ws_50', 'linacc_phone_z_freq_1.8_Hz_ws_50', 'linacc_phone_x_freq_1.0_Hz_ws_50', 'linacc_phone_x_freq_1.0_Hz_ws_50', 'pca_7', 'pca_7', 'gyr_phone_x_freq_1.8_Hz_ws_50', 'gyr_phone_x_freq_1.8_Hz_ws_50', 'acc_phone_y_freq_4.4_Hz_ws_50', 'acc_phone_y_freq_4.4_Hz_ws_50', 'acc_phone_y_freq_2.0_Hz_ws_50', 'acc_phone_y_freq_2.0_Hz_ws_50', 'gyr_phone_x_freq_3.0_Hz_ws_50', 'gyr_phone_x_freq_3.0_Hz_ws_50', 'mag_phone_y_freq_0.6_Hz_ws_50', 'mag_phone_y_freq_0.6_Hz_ws_50', 'linacc_phone_x_freq_2.0_Hz_ws_50', 'linacc_phone_x_freq_2.0_Hz_ws_50', 'acc_phone_y_freq_2.4_Hz_ws_50', 'acc_phone_y_freq_2.4_Hz_ws_50', 'acc_phone_y_freq_2.6_Hz_ws_50', 'acc_phone_y_freq_2.6_Hz_ws_50', 'mag_phone_y_freq_0.4_Hz_ws_50', 'mag_phone_y_freq_0.4_Hz_ws_50', 'acc_phone_y_freq_1.4_Hz_ws_50', 'acc_phone_y_freq_1.4_Hz_ws_50', 'mag_phone_y_freq_2.4_Hz_ws_50', 'mag_phone_y_freq_2.4_Hz_ws_50', 'mag_phone_y_freq_3.0_Hz_ws_50', 'mag_phone_y_freq_3.0_Hz_ws_50', 'acc_phone_y', 'acc_phone_y', 'pca_6', 'pca_6', 'mag_phone_y_freq_4.0_Hz_ws_50', 'mag_phone_y_freq_4.0_Hz_ws_50', 'mag_phone_y_freq_0.8_Hz_ws_50', 'mag_phone_y_freq_0.8_Hz_ws_50', 'acc_phone_z_freq_4.2_Hz_ws_50']
 
 
 # # # Let us first study the impact of regularization and model complexity: does regularization prevent overfitting?
@@ -172,7 +174,7 @@ DataViz.plot_xy(x=[leaf_settings, leaf_settings], y=[performance_training, perfo
 
 possible_feature_sets = [basic_features, features_after_chapter_3, features_after_chapter_4, features_after_chapter_5, selected_features]
 feature_names = ['initial set', 'Chapter 3', 'Chapter 4', 'Chapter 5', 'Selected features']
-N_KCV_REPEATS = 5
+N_KCV_REPEATS = 15
 
 
 print('Preprocessing took', time.time()-start, 'seconds.')
@@ -191,7 +193,7 @@ for i in range(0, len(possible_feature_sets)):
     # performance_te_nn = 0
     performance_te_rf = 0
     # performance_te_svm = 0
-
+    
     for repeat in range(0, N_KCV_REPEATS):
         # print("Training NeuralNetwork run {} / {} ... ".format(repeat, N_KCV_REPEATS, feature_names[i]))
         # class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.feedforward_neural_network(
@@ -240,7 +242,7 @@ for i in range(0, len(possible_feature_sets)):
     
     performance_tr_dt = eval.accuracy(train_y, class_train_y)
     performance_te_dt = eval.accuracy(test_y, class_test_y)
-    mse = eval.mean_square_error(test_y, class_test_y)
+    # mse = eval.mean_square_error(test_y, class_test_y)
     print('')
     # print("Training Naive Bayes run 1/1 featureset {}:".format(feature_names[i]))
     # class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.naive_bayes(
